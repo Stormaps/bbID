@@ -67,6 +67,7 @@ def given(number_string):
                         j -= 1
                     else:
                         j += 1
+                    cls(100)
                     print("Дано:\n{0}".format('\n'.join(given_str)))
                     print("СИ:\n{0} kg".format(m))
                     if result_ytp > 1000000:
