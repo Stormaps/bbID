@@ -1,4 +1,4 @@
-# Калькулятор Физики v0.2.0
+# Калькулятор Физики v0.3.0
 
 
 import re
@@ -19,8 +19,11 @@ def given(number_string):
         
         given_str.append(input())
         regiven_str.append(given_str[i].replace(' ', ''))
-        given_str[i] = given_str[i].replace("**", ' ')
-        given_str[i] = given_str[i].replace("*", ' ')
+        if '*' in given_str[i]:
+            numa = regiven_str[i].replace('lambda=', '')
+            num = eval(numa)
+            given_str[i] = 'lambda = ' + str(num)
+            
         given_str_number.append(find_num(given_str[i]))
 
 
@@ -67,15 +70,14 @@ def given(number_string):
                         j -= 1
                     else:
                         j += 1
-                    cls(100)
-                    print("Дано:\n{0}".format('\n'.join(given_str)))
-                    print("СИ:\n{0} kg".format(m))
-                    if result_ytp > 1000000:
-                        print("Решение:\nQ = lambda*m\nQ = {0} Дж/Кг * {1} кг = {2} Дж = {3} МДж\nОтвет: Q = {3} МДж.".format(lambda_x, m, result_ytp, result_ytp / 1000000))
-                    elif result_ytp > 5000:
-                        print("Решение:\nQ = lambda*m\nQ = {0} Дж/Кг * {1} кг = {2} Дж = {3} КДж\nОтвет: Q = {3} КДж.".format(lambda_x, m, result_ytp, result_ytp / 1000))
-                    else:
-                        print("Решение:\nQ = lambda*m\nQ = {0} Дж/Кг * {1} кг = {2}\nОтвет: Q = {2} Дж.".format(lambda_x, m, result_ytp))
+                print("Дано:\n{0}".format('\n'.join(given_str)))
+                print("СИ:\n{0} kg".format(m))
+                if result_ytp > 1000000:
+                    print("Решение:\nQ = lambda*m\nQ = {0} Дж/Кг * {1} кг = {2} Дж = {3} МДж\nОтвет: Q = {3} МДж.".format(lambda_x, m, result_ytp, result_ytp / 1000000))
+                elif result_ytp > 5000:
+                    print("Решение:\nQ = lambda*m\nQ = {0} Дж/Кг * {1} кг = {2} Дж = {3} КДж\nОтвет: Q = {3} КДж.".format(lambda_x, m, result_ytp, result_ytp / 1000))
+                else:
+                    print("Решение:\nQ = lambda*m\nQ = {0} Дж/Кг * {1} кг = {2}\nОтвет: Q = {2} Дж.".format(lambda_x, m, result_ytp))
         result()
     SI()
     
