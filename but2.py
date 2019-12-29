@@ -1,4 +1,4 @@
-# Калькулятор Физики v0.3.0
+# Калькулятор Физики v0.4.0 snp 1
 
 
 import re
@@ -11,18 +11,25 @@ given_str_number = []
 given_str = []
 regiven_str = []
 
-def given(number_string):
+def given():
     global given_str, given_str_number, regiven_str, testing_for_kg, m, lambda_x, formulmatch_ytp
     i = 0
     print("Дано:\n")
-    while i < number_string:
+    while i <= 20:
         
         given_str.append(input())
+        if given_str[i] == '':
+            break
         regiven_str.append(given_str[i].replace(' ', ''))
         if '*' in given_str[i]:
-            numa = regiven_str[i].replace('lambda=', '')
-            num = eval(numa)
-            given_str[i] = 'lambda = ' + str(num)
+            numa = find_num(regiven_str[i])
+            # numa = ''.join(numa)
+
+            numa[0] = eval(numa[0])
+            numa[0] = str(numa[0])
+            given_str_number.append([numa[0]])
+            i += 1
+            continue
             
         given_str_number.append(find_num(given_str[i]))
 
@@ -61,7 +68,6 @@ def given(number_string):
     
         def result():
             if formulmatch_ytp == 2:
-                
                 result_ytp = float(m) * float(lambda_x)
                 j = 0
                 while j < len(given_str):
@@ -104,7 +110,7 @@ def find_num(input_str): # Сам алгоритм, внизу всё, что п
 #                                 например a4: a - это буква, не будем её включать в число,
 #                                              4 - это цифра, будем включать её в число. 
 #
-            if (element == '.' and '.' not in out_number) or element.isdigit(): # Если это цифра или точка, 
+            if (element == '.' and '.' not in out_number) or element.isdigit() or element == '*': # Если это цифра или точка, 
                 out_number += element                                           # то добавляется в число out_number
             elif out_number: #                                                    иначе, если условие не сработало
                 break #                                                           то мы выходим из цикла
@@ -119,7 +125,8 @@ def find_num(input_str): # Сам алгоритм, внизу всё, что п
 #      Если слова закончились, то цикл завершается
     numbers = list(filter(None, numbers)) # Стираются пробелы, это просто мусор для нашего списка
     return numbers # Алгоритм завершён, числа, если они есть извлеклись из строки и добавились в список numbers!
-while True:  
+while True: 
+    
     a = input("1. Начать писать через дано. \n ") 
     if a == '1':
         m = 0
@@ -131,7 +138,7 @@ while True:
         given_str = []
         regiven_str = []
         
-        given(6)
+        given()
 
         
     elif a == 'EXIT' or 'Exit' or 'exit' or 'CLOSE' or 'Close' or 'close' or 'Закрыть' or 'K':
